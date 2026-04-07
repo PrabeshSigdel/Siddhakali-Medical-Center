@@ -28,6 +28,11 @@ function loadJS(page) {
 function loadPage(page) {
     const app = document.getElementById("app");
 
+    if (window.__homeCarouselTimer) {
+        clearInterval(window.__homeCarouselTimer);
+        window.__homeCarouselTimer = null;
+    }
+
     // Create new CSS link
     const newLink = document.createElement("link");
     newLink.rel = "stylesheet";

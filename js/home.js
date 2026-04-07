@@ -1,39 +1,62 @@
-const track = document.getElementById('track');
-const thumbs = document.querySelectorAll('.thumb');
-const bar = document.getElementById('bar');
-const counter = document.getElementById('counter');
-const total = thumbs.length;
-let current = 0;
-let timer;
+(function () {
+    const track = document.getElementById('track');
+    const thumbs = Array.from(document.querySelectorAll('.thumb'));
+    const bar = document.getElementById('bar');
+    const counter = document.getElementById('counter');
 
-// slide labels
-const labels = [
-    { title: 'State-of-the-Art Facility', sub: 'Modern medical environment' },
-    { title: 'Expert Medical Team', sub: 'Certified doctors & specialists' },
-    { title: 'Comprehensive Services', sub: 'Visa medicals & health checks' },
-];
+    if (!track || !thumbs.length || !bar || !counter) {
+        return;
+    }
 
-function goTo(i) {
-    current = (i + total) % total;
-    track.style.transform = `translateX(-${current * 100}%)`;
-    thumbs.forEach((t, idx) => t.classList.toggle('active', idx === current));
-    bar.style.width = `${((current + 1) / total) * 100}%`;
-    counter.textContent = `0${current + 1} / 0${total}`;
-}
+    if (window.__homeCarouselTimer) {
+        clearInterval(window.__homeCarouselTimer);
+    }
 
-// all prev/next buttons (inside slides + any extra)
-document.querySelectorAll('[id^="next"]').forEach(btn =>
-    btn.addEventListener('click', () => { goTo(current + 1); restart(); })
-);
-document.querySelectorAll('[id^="prev"]').forEach(btn =>
-    btn.addEventListener('click', () => { goTo(current - 1); restart(); })
-);
+    const total = thumbs.length;
+    let current = 0;
 
-thumbs.forEach((t, i) => t.addEventListener('click', () => { goTo(i); restart(); }));
+    function goTo(index) {
+        current = (index + total) % total;
+        track.style.transform = `translateX(-${current * 100}%)`;
+        thumbs.forEach((thumb, thumbIndex) => {
+            thumb.classList.toggle('active', thumbIndex === current);
+        });
+        bar.style.width = `${((current + 1) / total) * 100}%`;
+        counter.textContent = `0${current + 1} / 0${total}`;
+    }
 
-function restart() {
-    clearInterval(timer);
-    timer = setInterval(() => goTo(current + 1), 4500);
-}
+    function startAutoSlide() {
+        window.__homeCarouselTimer = setInterval(function () {
+            goTo(current + 1);
+        }, 4500);
+    }
 
-restart();
+    function restartAutoSlide() {
+        clearInterval(window.__homeCarouselTimer);
+        startAutoSlide();
+    }
+
+    document.querySelectorAll('[id^="next"]').forEach(button => {
+        button.addEventListener('click', function () {
+            goTo(current + 1);
+            restartAutoSlide();
+        });
+    });
+
+    document.querySelectorAll('[id^="prev"]').forEach(button => {
+        button.addEventListener('click', function () {
+            goTo(current - 1);
+            restartAutoSlide();
+        });
+    });
+
+    thumbs.forEach((thumb, index) => {
+        thumb.addEventListener('click', function () {
+            goTo(index);
+            restartAutoSlide();
+        });
+    });
+
+    goTo(0);
+    startAutoSlide();
+})();
