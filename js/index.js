@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Get elements
     const nav = document.querySelector('.nav');
     const navLinks = document.querySelectorAll('.nav a');
+    const dropdownToggles = document.querySelectorAll('.dropdown-toggle-custom');
 
     // Toggle menu function
     function toggleMenu() {
@@ -50,9 +51,16 @@ document.addEventListener('DOMContentLoaded', function () {
     // Overlay click event
     overlay.addEventListener('click', closeMenu);
 
-    // Close menu when clicking nav links
+    // Close menu when clicking final nav destinations
     navLinks.forEach(link => {
-        link.addEventListener('click', closeMenu);
+        link.addEventListener('click', function (e) {
+            if (window.innerWidth <= 1024 && link.classList.contains('dropdown-toggle-custom')) {
+                e.preventDefault();
+                return;
+            }
+
+            closeMenu();
+        });
     });
 
     // Close menu when clicking contact button
@@ -88,38 +96,24 @@ document.addEventListener('DOMContentLoaded', function () {
             closeMenu();
         }
     });
-});
+    // Open mobile dropdowns without closing the hamburger menu
+    dropdownToggles.forEach(toggle => {
+        toggle.addEventListener('click', function (e) {
+            if (window.innerWidth <= 1024) {
+                e.preventDefault();
+                e.stopPropagation();
 
-//hamburger menu for services in navbar should open for mobile view when clicked because hover doesn't work on mobile.
-// const serviceDropdown = document.querySelector(".nav-dropdown > a");
-// const navDropdown = document.querySelector(".nav-dropdown");
+                const parentDropdown = toggle.closest('.nav-dropdown');
 
-// serviceDropdown.addEventListener("click", (e) => {
-//     if (window.innerWidth <= 1024) {
-//         e.preventDefault();
-//         navDropdown.classList.toggle("active");
-//     }
-// });
+                document.querySelectorAll('.nav-dropdown').forEach(dropdown => {
+                    if (dropdown !== parentDropdown) {
+                        dropdown.classList.remove('active');
+                    }
+                });
 
-// Select both dropdown toggles
-const dropdownToggles = document.querySelectorAll(".dropdown-toggle-custom");
-
-dropdownToggles.forEach(toggle => {
-    toggle.addEventListener("click", (e) => {
-        if (window.innerWidth <= 1024) {
-            e.preventDefault();
-            const parentDropdown = toggle.closest(".nav-dropdown");
-            
-            // Close other dropdowns
-            document.querySelectorAll(".nav-dropdown").forEach(dropdown => {
-                if (dropdown !== parentDropdown) {
-                    dropdown.classList.remove("active");
-                }
-            });
-            
-            // Toggle current dropdown
-            parentDropdown.classList.toggle("active");
-        }
+                parentDropdown.classList.toggle('active');
+            }
+        });
     });
 });
 
