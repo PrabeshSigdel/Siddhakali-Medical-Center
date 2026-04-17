@@ -914,17 +914,6 @@ html {
   margin-bottom: 18px;
 }
 
-.highlight-text {
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--black-mid);
-  line-height: 1.75;
-  padding: 18px 22px;
-  background: var(--green-pale);
-  border-left: 4px solid var(--green);
-  margin-bottom: 32px;
-}
-
 .features-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
