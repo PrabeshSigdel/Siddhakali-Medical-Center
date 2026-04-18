@@ -5,24 +5,38 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Our Services | The Clinical Atelier</title>
+    <title>Mr. Resham Gurung | The Clinical Atelier</title>
     <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600&amp;family=Inter:wght@300;400;500&amp;display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
         rel="stylesheet" />
     <style>
         :root {
-            --primary: #006b59;
-            --primary-container: #49a38e;
+            /* Design System Tokens from {{DATA:DESIGN_SYSTEM:DESIGN_SYSTEM_1}} */
+            --primary: #49A38E;
+            --primary-dim: #7ed7c0;
+            --primary-container: #006b59;
             --on-primary: #ffffff;
+
             --surface: #f8f9fa;
             --surface-container-low: #f3f4f5;
+            --surface-container: #edeeef;
+            --surface-container-high: #e7e8e9;
+            --surface-container-highest: #e1e3e4;
+
             --on-surface: #191c1d;
             --on-surface-variant: #3e4945;
-            --outline-variant: rgba(189, 201, 196, 0.3);
-            --background: #f8f9fa;
+            --outline-variant: #bdc9c4;
+
+            --radius-default: 0.125rem;
+            --radius-lg: 0.25rem;
+            --radius-xl: 0.5rem;
+            --radius-full: 9999px;
+
+            --font-headline: 'Manrope', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
         * {
@@ -32,290 +46,286 @@
         }
 
         body {
-            background-color: var(--background);
+            font-family: var(--font-body);
+            background-color: var(--surface);
             color: var(--on-surface);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
+            line-height: 1.8;
             -webkit-font-smoothing: antialiased;
         }
 
+        main {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 6rem 2rem;
+        }
+
+        @media (min-width: 768px) {
+            main {
+                padding: 8rem 2rem;
+            }
+        }
+
+        /* Typography */
         h1,
         h2,
         h3,
-        .font-headline {
-            font-family: 'Manrope', sans-serif;
+        h4,
+        h5 {
+            font-family: var(--font-headline);
+            letter-spacing: -0.02em;
+            font-weight: 300;
         }
 
-        .container {
-            max-width: 1440px;
+        .section-label {
+            color: var(--primary);
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            color: var(--on-surface);
+        }
+
+        .hero-title .italic {
+            color: var(--primary);
+            font-style: italic;
+        }
+
+        .hero-lead {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--on-surface-variant);
+            max-width: 42rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-lead {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Layout */
+        .header-section {
+            margin-bottom: 6rem;
+            max-width: 56rem;
+        }
+
+        @media (min-width: 768px) {
+            .header-section {
+                margin-bottom: 10rem;
+            }
+        }
+
+        .asymmetric-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        @media (min-width: 768px) {
+            .asymmetric-grid {
+                grid-template-columns: 1fr 1.5fr;
+                gap: 7.5rem;
+            }
+        }
+
+        /* Sidebar Elements */
+        .portrait-container {
+            position: relative;
+            margin-bottom: 4rem;
+        }
+
+        .portrait-glow {
+            position: absolute;
+            inset: -1rem;
+            background-color: rgba(126, 215, 192, 0.1);
+            border-radius: var(--radius-xl);
+            filter: blur(24px);
+            transition: background-color 0.7s ease;
+        }
+
+        .portrait-container:hover .portrait-glow {
+            background-color: rgba(126, 215, 192, 0.2);
+        }
+
+        .portrait-img {
+            position: relative;
+            width: 100%;
+            border-radius: var(--radius-xl);
+            box-shadow: 0px 12px 32px rgba(25, 28, 29, 0.04);
+            filter: grayscale(100%);
+            transition: filter 1s ease;
+            object-fit: cover;
+            aspect-ratio: 3/4;
+            display: block;
+        }
+
+        .portrait-container:hover .portrait-img {
+            filter: grayscale(0%);
+        }
+
+        .philosophy-block {
+            padding-left: 1rem;
+            border-left: 1px solid rgba(189, 201, 196, 0.2);
+        }
+
+        .philosophy-quote {
+            font-family: var(--font-body);
+            font-weight: 300;
+            font-style: italic;
+            font-size: 1.125rem;
+            line-height: 1.6;
+            color: var(--on-surface);
+        }
+
+        /* Content Column */
+        .content-section {
+            display: flex;
+            flex-direction: column;
+            gap: 6rem;
+        }
+
+        .journey-text {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            color: var(--on-surface-variant);
+            font-weight: 300;
+            font-size: 1.125rem;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            margin-bottom: 2rem;
+            color: var(--on-surface);
+        }
+
+        /* Bento Grid */
+        .focus-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .focus-grid {
+                grid-template-columns: 1fr 1.5fr;
+                /* Slightly asymmetric grid for interest */
+            }
+
+            .focus-grid>*:nth-child(2),
+            .focus-grid>*:nth-child(3) {
+                grid-column: span 1;
+            }
+
+            .focus-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .focus-card {
+            padding: 2rem;
+            background-color: var(--surface-container-low);
+            border-radius: var(--radius-xl);
+            box-shadow: 0px 12px 32px rgba(25, 28, 29, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .focus-card:hover {
+            background-color: var(--surface-container-lowest, #ffffff);
+        }
+
+        .focus-card .material-symbols-outlined {
+            color: var(--primary);
+            font-size: 1.875rem;
+            margin-bottom: 1.5rem;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .focus-card:hover .material-symbols-outlined {
+            transform: scale(1.1);
+        }
+
+        .focus-card h5 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+
+        .focus-card p {
+            font-size: 0.875rem;
+            color: var(--on-surface-variant);
+            font-weight: 300;
+        }
+
+        /* CTA */
+        .cta-section {
+            padding-top: 3rem;
+            border-top: 1px solid rgba(189, 201, 196, 0.1);
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            color: var(--primary);
+            font-weight: 500;
+            text-decoration: none;
+            transition: gap 0.3s ease;
+            font-size: 1.125rem;
+        }
+
+        .cta-link:hover {
+            gap: 1.5rem;
+        }
+
+        /* Footer */
+        footer {
+            width: 100%;
+            background-color: var(--surface-container-low);
+            padding: 3rem 2rem;
+        }
+
+        .footer-content {
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0.4;
+            gap: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+            }
+        }
+
+        .footer-logo {
+            font-family: var(--font-headline);
+            font-size: 0.875rem;
+            font-style: italic;
+        }
+
+        .footer-copy {
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
         }
 
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
             vertical-align: middle;
-            font-size: 1.25rem;
-        }
-
-        /* Editorial Grid System */
-        .editorial-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 2rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 6rem 0 8rem 0;
-        }
-
-        .hero-content {
-            grid-column: span 6;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        .hero-image-wrapper {
-            grid-column: span 6;
-        }
-
-        .hero-tag {
-            color: var(--primary);
-            font-weight: 500;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-size: 0.75rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 5vw, 4.5rem);
-            font-weight: 200;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 2rem;
-        }
-
-        .hero-title span {
-            font-style: italic;
-            font-weight: 400;
-        }
-
-        .hero-description {
-            color: var(--on-surface-variant);
-            font-size: 1.25rem;
-            max-width: 440px;
-            margin-bottom: 2.5rem;
-        }
-
-        .hero-image {
-            width: 100%;
-            aspect-ratio: 4/5;
-            object-cover: cover;
-            border-radius: 0.75rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-        }
-
-        /* Services Section */
-        .services-section {
-            background-color: var(--surface-container-low);
-            padding: 8rem 0;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 6rem;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            letter-spacing: -0.03em;
-        }
-
-        .section-counter {
-            color: var(--on-surface-variant);
-            font-size: 0.875rem;
-            font-weight: 500;
-            border-bottom: 1px solid var(--outline-variant);
-            padding-bottom: 0.5rem;
-        }
-
-        .service-row {
-            margin-bottom: 10rem;
-            align-items: center;
-        }
-
-        .service-number {
-            color: var(--primary-container);
-            font-family: 'Manrope', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 300;
-            display: block;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-name {
-            font-size: 2rem;
-            font-weight: 400;
-            margin-bottom: 1.5rem;
-        }
-
-        .service-text {
-            color: var(--on-surface-variant);
-            margin-bottom: 2rem;
-            max-width: 400px;
-        }
-
-        .service-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: gap 0.3s ease;
-        }
-
-        .service-link:hover {
-            gap: 0.75rem;
-        }
-
-        .service-image-container {
-            border-radius: 0.75rem;
-            overflow: hidden;
-            aspect-ratio: 16/9;
-        }
-
-        .service-image-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: grayscale(100%);
-            transition: filter 0.7s ease;
-        }
-
-        .service-image-container:hover img {
-            filter: grayscale(0%);
-        }
-
-        .separator {
-            height: 1px;
-            background-color: var(--outline-variant);
-            margin-bottom: 10rem;
-        }
-
-        /* Grid Services */
-        .grid-services {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 6rem;
-        }
-
-        .grid-service-image {
-            aspect-ratio: 1/1;
-            border-radius: 0.75rem;
-            overflow: hidden;
-            margin-bottom: 2rem;
-        }
-
-        .grid-service-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 8rem 2rem;
-            text-align: center;
-        }
-
-        .cta-title {
-            font-size: 2.5rem;
-            font-weight: 300;
-            margin-bottom: 2.5rem;
-        }
-
-        .cta-title span {
-            color: var(--primary);
-            font-style: italic;
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 1rem 2.5rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #006b59 0%, #49a38e 100%);
-            color: white;
-            border: none;
-            box-shadow: 0 10px 15px -3px rgba(0, 107, 89, 0.2);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 20px 25px -5px rgba(0, 107, 89, 0.3);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--on-surface);
-            border: 1px solid var(--outline-variant);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--surface-container-high);
-        }
-
-        .copyright {
-            color: #64748b;
-            font-size: 0.875rem;
-        }
-
-        @media (max-width: 768px) {
-            .editorial-grid {
-                display: block;
-            }
-
-            .hero-content {
-                margin-bottom: 4rem;
-            }
-
-            .service-row {
-                margin-bottom: 6rem;
-            }
-
-            .service-image-container {
-                margin-top: 2rem;
-            }
-
-            .grid-services {
-                grid-template-columns: 1fr;
-            }
-
-            .button-group {
-                flex-direction: column;
-            }
         }
     </style>
 </head>
@@ -323,106 +333,98 @@
 <body>
     <main>
         <!-- Hero Section -->
-        <section class="hero">
-            <div class="container editorial-grid">
-                <div class="hero-content">
-                    <span class="hero-tag">Diagnostic Excellence</span>
-                    <h1 class="hero-title">
-                        Precision Medicine <br />Through <span>Modern Care.</span>
-                    </h1>
-                    <p class="hero-description">
-                        Our services are designed to provide absolute clarity, merging advanced technology with clinical
-                        expertise.
+        <header class="header-section">
+            <span class="section-label">Leadership &amp; Vision</span>
+            <h1 class="hero-title">
+                Mr. Resham <br />
+                <span class="italic">Gurung</span>
+            </h1>
+            <p class="hero-lead">
+                Founder &amp; CEO. A visionary leader dedicated to medical excellence and clinical innovation.
+            </p>
+        </header>
+        <!-- Main Content -->
+        <div class="asymmetric-grid">
+            <!-- Left Column -->
+            <aside>
+                <div class="portrait-container">
+                    <div class="portrait-glow"></div>
+                    <img alt="Professional portrait of Mr. Resham Gurung" class="portrait-img"
+                        data-alt="Professional mid-shot portrait of a distinguished South Asian male executive in a sharp navy suit, neutral studio background, editorial lighting"
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgo2oykB9zjPuA-JG4hV6dZVOed233zjxpPKZi8NKN3UTQU4EWa1my9XUBozCtnHC1ynvTLzo3qj20uNh7ZdMAQnmz1t773kBMw-MZHedDGqwEI247GhdVH9EIGGbuCduMPvC-4yO50gvXU9r4tmo2EXwujT2aW1HGE01savMDoQjzvNtgM9-Uw7YEld0zyzBrNqCRw8ACcZygXdN-t-jmaA0X0L_fOnMeCnnUev8mqicTXrVYjKHc6dx_M1jkMSl8yWa6unREkJiM" />
+                </div>
+                <div class="philosophy-block">
+                    <h4 class="section-label" style="font-size: 0.65rem; margin-bottom: 0.5rem;">Philosophy</h4>
+                    <p class="philosophy-quote">
+                        "Innovation in healthcare is not just about technology; it's about the precision of care and the
+                        dignity of the patient experience."
                     </p>
                 </div>
-                <div class="hero-image-wrapper">
-                    <img alt="Modern clinical laboratory" class="hero-image"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDx4Ud-NBgRdcSKggX7Rf__vH2Qw8oh3mZ0s1-bR6EkEbxGl2I74AWOcqaGtySwU4007K76TPknR0IQF16DvukWSRq0CS-6b_dIRa0BgTMfiPRnD6MS5epqhpuZ8vrVnsrVpQHDAB9nNmNrcppIPdZfkQ1z0ThkLB8oyJkcXL_xj2el8f0luk9-ZeSMDMaCnr-3oJpL8wNz1AMAZZ1uEmKtqkj5YvNUgESg7YstwXZYwVm5dUGJwhUJ7UvEPzU4-8KhoWvJCTfDBA84" />
-                </div>
-            </div>
-        </section>
-        <!-- Services Section -->
-        <section class="services-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Our Services</h2>
-                    <p class="section-counter">01 — 04 Core Diagnostics</p>
-                </div>
-                <!-- Service 01 -->
-                <div class="editorial-grid service-row">
-                    <div style="grid-column: span 5;">
-                        <span class="service-number">01</span>
-                        <h3 class="service-name">Ultra Sonography (USG)</h3>
-                        <p class="service-text">
-                            High-resolution imaging providing non-invasive insights into your internal health. Our
-                            state-of-the-art ultrasound technology ensures accurate visualization for precise clinical
-                            assessments.
+            </aside>
+            <!-- Right Column -->
+            <section class="content-section">
+                <div>
+                    <h3 class="section-title">The Journey</h3>
+                    <div class="journey-text">
+                        <p>
+                            Mr. Resham Gurung brings over two decades of transformative leadership to the clinical
+                            landscape. As the architect of The Clinical Atelier, he has pioneered a new standard in
+                            patient-centric care models that blend high-end hospitality with rigorous medical standards.
                         </p>
-                        <a class="service-link" href="#">
-                            <span>Learn about imaging precision</span>
-                            <span class="material-symbols-outlined">arrow_forward</span>
-                        </a>
-                    </div>
-                    <div style="grid-column: 7 / span 6;">
-                        <div class="service-image-container">
-                            <img alt="Professional radiologist performing ultrasound"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAS-PPZdIjR3jI8QJceLczi-VW4zYUcGtGMX97hKHd86yOa7IdEOXcGhfQZF8KGh6c1gd0WxxVxL_lbyPPCwSzdrb7nYgC3bRE6jKemKzWETQSJOzP_AT9libINsnKmnJNlzi0kJq3SPQKX42GiJ7kw1NeEoVudpGUgCWFJUb3-yc5Y_Wn_2LEPEop5kjfOzoE1v3-K0PNKJTb7WhBdfEkiJuFh7UsMtaeJXykgniE2SUqZMXDfO9gmZCQe-jHak6iK-xtRzWMNwsFw" />
-                        </div>
-                    </div>
-                </div>
-                <div class="separator"></div>
-                <!-- Service 02 -->
-                <div class="editorial-grid service-row">
-                    <div style="grid-column: span 7;">
-                        <div class="service-image-container">
-                            <img alt="Laboratory technician with samples"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAl3JPQ2vTHRqZZ2WqNcWCqCHQZ_36JL1TiZ0B5Z18Slif3zxIcMJGQwpKfbOKEHh_u7rJYoPGaM2Atl2sYZQ2SRHn0h-IGwmXuC4cD5xFXGYYu1n4Q8O3tS0CHO-GmejnYAdsVk85R56iziy73fB64AML75I8kk8WyU-xwozvRXZiIumBpCqJrfcaBkUuxzE16QIlRlVk2x039BK7IkjJFuTMamcu_blATbxTNXxIKHuUjKRkuh75aZKTv5yMbnNOSz-O32hrMLr39" />
-                        </div>
-                    </div>
-                    <div style="grid-column: 9 / span 4;">
-                        <span class="service-number">02</span>
-                        <h3 class="service-name">Blood Grouping</h3>
-                        <p class="service-text">
-                            Fundamental hematological screening with absolute accuracy. Essential for emergency
-                            preparedness and health records, processed with our signature clinical rigor.
-                        </p>
-                        <a class="service-link" href="#">
-                            <span>Request hematology report</span>
-                            <span class="material-symbols-outlined">arrow_forward</span>
-                        </a>
-                    </div>
-                </div>
-                <div class="separator"></div>
-                <!-- Grid Services 03 & 04 -->
-                <div class="grid-services">
-                    <div class="grid-service-card">
-                        <span class="service-number">03</span>
-                        <h3 class="service-name">Blood Sugar Test</h3>
-                        <div class="grid-service-image">
-                            <img alt="Scientific glassware detail"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuD2xodxMJhSGZ1vQyILbKma6vQTCZKhCdKpFWWewM15ZOzmILT5piafxnBylUVTEWjbq-A9q30r7OxXT1DnM4bf8yjcHItHJFZpTGwad-E6n0o4onXiZPH6FbPO70fKThOZV48Tmyuu5wRBK2U_k98QLWJFhdp9nQUsvure_kJceG6b97qnkf62JFRK7QBPSAYvXsbH5_2BANjQ8VV3lS4CCi_DtWHfe3SDY19Hu8lF4qjmw05jS3j5LJCLgWjdLm0pejsFGGOQbhRz" />
-                        </div>
-                        <p class="service-text">
-                            Comprehensive glycemic monitoring. We utilize advanced enzymatic sensors to provide a
-                            detailed view of your glucose levels and metabolic health over time.
-                        </p>
-                    </div>
-                    <div class="grid-service-card">
-                        <span class="service-number">04</span>
-                        <h3 class="service-name">Uric Acid</h3>
-                        <div class="grid-service-image">
-                            <img alt="Precision clinical instrument"
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAdKRd7k0qNX36qUbQKBRWgR5lqxk9Ez519AuCFyN_zo7SWY2Giiy7AYq9VUBm3RL6H1L3AUyesyYVAyXIZROlEV6Q9OTrIrw13NtklaqW4RxGBYjKHXggo-Epf9tb1raKsyynEDaBZQqB__v76_19Oc9-RG86NyyE5vxyCW6fYBUzZBTDfnhYpIb3tTJZIc7EHpcTL_2FqaMrR9Q-iiBNU5ykEG1tokjdT4WvZ0d3HFnKZ7Pxz84IRNW_ZPHFXG9_Ri1Vezs7Bi17K" />
-                        </div>
-                        <p class="service-text">
-                            Targeted biochemical analysis for joints and renal health. Our precise measurement
-                            techniques help in early detection and management of hyperuricemia.
+                        <p>
+                            His approach is defined by "breathable authority"—ensuring that clinical environments feel
+                            like sanctuaries of healing rather than sterile institutions. Under his guidance, the
+                            organization has expanded its footprint across premium healthcare sectors, consistently
+                            setting benchmarks for operational excellence and aesthetic integrity.
                         </p>
                     </div>
                 </div>
-            </div>
-        </section>
+                <!-- Areas of Focus -->
+                <div>
+                    <h3 class="section-title">Areas of Focus</h3>
+                    <div class="focus-grid">
+                        <div class="focus-card">
+                            <span class="material-symbols-outlined">strategy</span>
+                            <h5>Strategic Leadership</h5>
+                            <p>Navigating complex clinical landscapes with a vision for long-term sustainable growth and
+                                medical integrity.</p>
+                        </div>
+                        <div class="focus-card">
+                            <span class="material-symbols-outlined">clinical_notes</span>
+                            <h5>Clinical Innovation</h5>
+                            <p>Integrating state-of-the-art medical technology with human-centric design for superior
+                                outcomes.</p>
+                        </div>
+                        <div class="focus-card">
+                            <span class="material-symbols-outlined">handshake</span>
+                            <h5>Partnership Development</h5>
+                            <p>Building global alliances with top-tier medical professionals and research institutions.
+                            </p>
+                        </div>
+                        <div class="focus-card">
+                            <span class="material-symbols-outlined">architecture</span>
+                            <h5>Design Excellence</h5>
+                            <p>Curating the aesthetic and functional environment of the clinic to optimize patient
+                                wellbeing.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Closing -->
+                <div class="cta-section">
+                    <a class="cta-link" href="mailto:contact@clinicalatelier.com">
+                        <span>Inquire for consultation</span>
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </a>
+                </div>
+            </section>
+        </div>
     </main>
+    <footer>
+        <div class="footer-content">
+            <span class="footer-logo">The Clinical Atelier</span>
+            <span class="footer-copy">© 2024 MR. RESHAM GURUNG. ALL RIGHTS RESERVED.</span>
+        </div>
+    </footer>
 </body>
 
 </html>
