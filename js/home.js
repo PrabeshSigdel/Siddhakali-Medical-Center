@@ -4,7 +4,7 @@
     const bar = document.getElementById('bar');
     const counter = document.getElementById('counter');
 
-    if (!track || !thumbs.length || !bar || !counter) {
+    if (!track || !bar || !counter) {
         return;
     }
 
@@ -12,15 +12,19 @@
         clearInterval(window.__homeCarouselTimer);
     }
 
-    const total = thumbs.length;
+    const total = thumbs.length || track.children.length;
     let current = 0;
 
     function goTo(index) {
         current = (index + total) % total;
-        track.style.transform = `translateX(-${current * 100}%)`;
-        thumbs.forEach((thumb, thumbIndex) => {
-            thumb.classList.toggle('active', thumbIndex === current);
-        });
+        track.style.left = `-${current * 100}%`;
+        
+        if (thumbs.length) {
+            thumbs.forEach((thumb, thumbIndex) => {
+                thumb.classList.toggle('active', thumbIndex === current);
+            });
+        }
+        
         bar.style.width = `${((current + 1) / total) * 100}%`;
         counter.textContent = `0${current + 1} / 0${total}`;
     }
@@ -50,12 +54,14 @@
         });
     });
 
-    thumbs.forEach((thumb, index) => {
-        thumb.addEventListener('click', function () {
-            goTo(index);
-            restartAutoSlide();
+    if (thumbs.length) {
+        thumbs.forEach((thumb, index) => {
+            thumb.addEventListener('click', function () {
+                goTo(index);
+                restartAutoSlide();
+            });
         });
-    });
+    }
 
     goTo(0);
     startAutoSlide();

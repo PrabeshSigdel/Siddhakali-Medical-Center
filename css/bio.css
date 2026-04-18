@@ -17,7 +17,7 @@
  body {
      background: var(--bg);
      color: var(--ink);
-     font-family: "Ubuntu", sans-serif;
+     font-family: "Manrope", sans-serif;
      min-height: 100vh;
      overflow-x: hidden;
  }
@@ -55,7 +55,7 @@
  }
 
  .hero-label {
-     font-family: "Ubuntu", sans-serif;
+     font-family: "Manrope", sans-serif;
      font-size: 0.68rem;
      letter-spacing: 0.2em;
      color: var(--green);
@@ -74,7 +74,7 @@
  }
 
  .hero-name {
-     font-family: "Ubuntu", sans-serif;
+     font-family: "Manrope", sans-serif;
      font-size: clamp(4rem, 7vw, 7.5rem);
      font-weight: 900;
      line-height: 0.9;
@@ -99,7 +99,7 @@
  .hero-sub {
      margin-top: 36px;
      padding-top: 36px;
-     font-family: "Ubuntu", sans-serif;
+     font-family: "Manrope", sans-serif;
      font-size: 0.75rem;
      letter-spacing: 0.1em;
      color: var(--ink-dim);
