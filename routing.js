@@ -1,15 +1,36 @@
 // List of allowed pages
 const routes = ["home", "about", "timeline", "services", "contact", "machine", "bio", "gallery"];
 
-// Load CSS dynamically
-function loadCSS(page) {
+function clearPageTimers() {
+    if (window.__homeCarouselTimer) {
+        clearInterval(window.__homeCarouselTimer);
+        window.__homeCarouselTimer = null;
+    }
+
+    if (window.__testimonialInterval) {
+        clearInterval(window.__testimonialInterval);
+        window.__testimonialInterval = null;
+    }
+}
+
+function swapPageCSS(page) {
     const oldLink = document.getElementById("page-css");
-    if (oldLink) oldLink.remove();
+    const oldHref = oldLink ? oldLink.getAttribute("href") : "";
+    const nextHref = `css/${page}.css`;
+
+    if (oldHref === nextHref) {
+        return;
+    }
 
     const link = document.createElement("link");
     link.rel = "stylesheet";
-    link.href = `/css/${page}.css`;
+    link.href = nextHref;
     link.id = "page-css";
+
+    if (oldLink) {
+        oldLink.remove();
+    }
+
     document.head.appendChild(link);
 }
 
@@ -19,52 +40,37 @@ function loadJS(page) {
     if (oldScript) oldScript.remove();
 
     const script = document.createElement("script");
-    script.src = `/js/${page}.js`;
+    script.src = `js/${page}.js`;
     script.id = "page-js";
+    script.defer = true;
     document.body.appendChild(script);
 }
 
 // Load a specific page into #app
 function loadPage(page) {
     const app = document.getElementById("app");
+    if (!app) return;
 
-    if (window.__homeCarouselTimer) {
-        clearInterval(window.__homeCarouselTimer);
-        window.__homeCarouselTimer = null;
-    }
+    clearPageTimers();
+    swapPageCSS(page);
 
-    // Create new CSS link
-    const newLink = document.createElement("link");
-    newLink.rel = "stylesheet";
-    newLink.href = `/css/${page}.css`;
+    fetch(`html/${page}.html`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${page}`);
+            }
 
-    // Load CSS and HTML in parallel
-    Promise.all([
-        new Promise(resolve => {
-            newLink.onload = resolve;
-            document.head.appendChild(newLink);
-        }),
-        fetch(`html/${page}.html`).then(r => r.text())
-    ])
-        .then(([_, html]) => {
-            // Remove old CSS
-            const oldLink = document.getElementById("page-css");
-            if (oldLink) oldLink.remove();
-
-            // Set new CSS ID
-            newLink.id = "page-css";
-
-            // Update content
+            return response.text();
+        })
+        .then(html => {
             app.innerHTML = html;
 
-            // Reset scroll
             window.scrollTo({
                 top: 0,
                 left: 0,
                 behavior: "instant"
             });
 
-            // Load JS
             loadJS(page);
         })
         .catch(() => {
@@ -102,7 +108,12 @@ function highlightActiveLink(page) {
     });
 }
 
-// Trigger router on hash change or page load
+// Trigger router as soon as the DOM is ready so content does not wait for all assets.
 window.addEventListener("hashchange", router);
-window.addEventListener("load", router);
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", router);
+} else {
+    router();
+}
 
