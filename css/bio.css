@@ -72,9 +72,9 @@ h5 {
 }
 
 .hero-title {
-    font-size: clamp(3.5rem, 8vw, 6rem);
+    font-size: clamp(3.5rem, 8vw, 5rem);
     line-height: 1.1;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
     color: var(--on-surface);
 }
 
@@ -97,14 +97,22 @@ h5 {
 }
 
 /* Layout */
+.bio-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: start;
+    margin-bottom: 5rem;
+}
+
 .header-section {
-    margin-bottom: 6rem;
     max-width: 56rem;
 }
 
 @media (min-width: 768px) {
-    .header-section {
-        margin-bottom: 10rem;
+    .bio-hero-grid {
+        grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+        gap: 4rem;
     }
 }
 
@@ -117,38 +125,43 @@ h5 {
 
 @media (min-width: 768px) {
     .asymmetric-grid {
-        grid-template-columns: 1fr 1.5fr;
-        gap: 7.5rem;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 4rem;
     }
 }
 
 /* Sidebar Elements */
+.hero-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
 .portrait-container {
     position: relative;
-    margin-bottom: 4rem;
 }
 
 .portrait-glow {
     position: absolute;
     inset: -1rem;
-    background-color: rgba(126, 215, 192, 0.1);
+    /* background-color: rgba(126, 215, 192, 0.1); */
     border-radius: var(--radius-xl);
     filter: blur(24px);
     transition: background-color 0.7s ease;
 }
 
 .portrait-container:hover .portrait-glow {
-    background-color: rgba(126, 215, 192, 0.2);
+    /* background-color: rgba(126, 215, 192, 0.2); */
 }
 
 .portrait-img {
     position: relative;
     width: 100%;
     border-radius: var(--radius-xl);
-    box-shadow: 0px 12px 32px rgba(25, 28, 29, 0.04);
+    /* box-shadow: 0px 12px 32px rgba(25, 28, 29, 0.04); */
     transition: filter 1s ease;
     object-fit: cover;
-    aspect-ratio: 3/4;
+    aspect-ratio: 3 / 3.9;
     display: block;
 }
 
@@ -157,20 +170,30 @@ h5 {
     border-left: 1px solid rgba(189, 201, 196, 0.2);
 }
 
+.hero-philosophy {
+    margin-top: 3rem;
+    max-width: 38rem;
+}
+
+.philosophy-label {
+    font-size: 0.65rem;
+    margin-bottom: 0.5rem;
+}
+
 .philosophy-quote {
     font-family: var(--font-body);
     font-weight: 300;
     font-style: italic;
-    font-size: 1.125rem;
+    font-size: 1.4rem;
     line-height: 1.6;
     color: var(--on-surface);
 }
 
 /* Content Column */
-.content-section {
+.content-block {
     display: flex;
     flex-direction: column;
-    gap: 6rem;
+    min-width: 0;
 }
 
 .journey-text {
@@ -205,7 +228,7 @@ h5 {
     padding: 2rem;
     background-color: var(--surface-container-low);
     border-radius: var(--radius-xl);
-    box-shadow: 0px 12px 32px rgba(25, 28, 29, 0.04);
+    /* box-shadow: 0px 12px 32px rgba(25, 28, 29, 0.04); */
     transition: all 0.3s ease;
 }
 
@@ -261,4 +284,14 @@ h5 {
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
     vertical-align: middle;
+}
+
+@media (max-width: 767px) {
+    .bio-hero-grid {
+        margin-bottom: 4rem;
+    }
+
+    .header-section {
+        max-width: 100%;
+    }
 }
